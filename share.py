@@ -38,7 +38,7 @@ def create_share_page(to_share, file_name):
         file.write('        <div>\n')
         file.write('            <input id="txt" value="')
         file.write(to_share)
-        file.write('" />\n')
+        file.write('"/>\n')
         file.write('            <button class="button" id="btn">'
                                 'Copy</button>\n')
         file.write('        </div>\n\n\n')        
