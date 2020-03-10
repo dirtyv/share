@@ -90,13 +90,15 @@ def get_info():
     return (to_share, file_name)
 
 
-#Actual execution takes place here
+def main():
+    start = (get_info())
+    create_share_page(*start)
+    start_server()
+
+    #Deletes the created file if the user chose the default option
+    if start[1] == 'index.html':
+        os.remove(start[1])
 
 
-start = (get_info())
-create_share_page(*start)
-start_server()
-
-#Deletes the created file if the user chose the default option
-if start[1] == 'index.html':
-    os.remove(start[1])
+if __name__ == '__main__':
+    main()
