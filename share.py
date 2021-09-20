@@ -1,4 +1,8 @@
-import socket, http.server, socketserver, os
+import socket
+import http.server
+import socketserver
+import os
+
 
 def my_ip():
     """This function returns the IP address of the computer."""
@@ -68,10 +72,10 @@ def start_server():
     
     print(f'Enter this address into browser:\nhttp://{my_ip()}:8000/')
     print('Press Ctrl-C when finished to stop server')
-    PORT = 8000
-    Handler = http.server.SimpleHTTPRequestHandler
+    port = 8000
+    handler = http.server.SimpleHTTPRequestHandler
     try:
-        httpd = socketserver.TCPServer(("", PORT), Handler)
+        httpd = socketserver.TCPServer(("", port), handler)
         httpd.serve_forever()
     except KeyboardInterrupt:
         httpd.shutdown()
@@ -87,7 +91,7 @@ def get_info():
     if file_name == "":
         file_name = "index"
     file_name += ".html"
-    return (to_share, file_name)
+    return to_share, file_name
 
 
 def main():
@@ -95,7 +99,7 @@ def main():
     create_share_page(*start)
     start_server()
 
-    #Deletes the created file if the user chose the default option
+# Deletes the created file if the user chose the default option
     if start[1] == 'index.html':
         os.remove(start[1])
 
