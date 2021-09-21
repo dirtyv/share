@@ -6,12 +6,12 @@ import os
 
 def my_ip():
     """This function returns the IP address of the computer."""
-    
+
     my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
         my_socket.connect(('10.255.255.255', 1))
         this_ip = my_socket.getsockname()[0]
-    except:
+    except Exception:
         this_ip = '127.0.0.1'
     finally:
         my_socket.close()
@@ -23,12 +23,12 @@ def create_share_page(to_share, file_name):
        and an input box with accompanying button that copies its contents into
        the clipboard.
     """
-    
+
     with open(file_name, 'w') as file:
         file.write('<!DOCTYPE html>\n')
         file.write('<html>\n    <head>\n')
         file.write('            <meta name="viewport" content='
-                                '"width=device-width, initial-scale=2.0">\n')
+                   '"width=device-width, initial-scale=2.0">\n')
         file.write('            <link rel="icon" href="data:,">\n')
         file.write('    </head>\n\n')
         file.write('    <body>\n')
@@ -44,14 +44,14 @@ def create_share_page(to_share, file_name):
         file.write(to_share)
         file.write('"/>\n')
         file.write('            <button class="button" id="btn">'
-                                'Copy</button>\n')
-        file.write('        </div>\n\n\n')        
+                   'Copy</button>\n')
+        file.write('        </div>\n\n\n')
         file.write("        <script>\n")
         file.write("            const txt = document.querySelector('#txt')\n")
         file.write("            const btn = document.querySelector('#btn')\n")
         file.write("            const copy = (text) => {\n")
         file.write("                const textarea = document.createElement"
-                                    "('textarea')\n")
+                   "('textarea')\n")
         file.write("                document.body.appendChild(textarea)\n")
         file.write("                textarea.value = text\n")
         file.write("                textarea.select()\n")
@@ -61,7 +61,7 @@ def create_share_page(to_share, file_name):
         file.write("            btn.addEventListener('click', (e) => {\n")
         file.write("                copy(txt.value)\n")
         file.write("            }\n")
-        file.write("        </script>\n")   
+        file.write("        </script>\n")
         file.write('    </body>\n</html>')
 
 
@@ -69,8 +69,8 @@ def start_server():
     """Starts up a simple webserver and informs the user where to find its
        content.
     """
-    
-    print(f'Enter this address into browser:\nhttp://{my_ip()}:8000/')
+    httpd = None
+    print(f'Enter this address into browser:\nhttps://{my_ip()}:8000/')
     print('Press Ctrl-C when finished to stop server')
     port = 8000
     handler = http.server.SimpleHTTPRequestHandler
@@ -99,7 +99,7 @@ def main():
     create_share_page(*start)
     start_server()
 
-# Deletes the created file if the user chose the default option
+    # Deletes the created file if the user chose the default option
     if start[1] == 'index.html':
         os.remove(start[1])
 
