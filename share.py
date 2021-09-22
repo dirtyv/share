@@ -11,7 +11,8 @@ def my_ip():
     try:
         my_socket.connect(('10.255.255.255', 1))
         this_ip = my_socket.getsockname()[0]
-    except Exception:
+    # If unable to connect to network, sets IP to localhost
+    except OSError:
         this_ip = '127.0.0.1'
     finally:
         my_socket.close()
